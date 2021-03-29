@@ -1,6 +1,6 @@
 <div class="row" style="justify-content: center">
   <div class="col-sm">
-    <h1>Editar Administrador: </h1>
+    <h1>Novo Administrador: </h1>
       <%= form_with(model: [ :admins_backoffice, @admin ], local: true) do |form| %>
         <div class="row" style="width: 100%">
           <% if @admin.errors.any? %>
@@ -37,7 +37,7 @@
             <div class="col-md-1">
               <div class="form-group">
                 <label>&nbsp;</label>
-                <%= form.submit "Editar Admin", class: "btn btn-primary" %>
+                <%= form.submit "Criar Admin", class: "btn btn-primary" %>
               </div>
             </div>
           </div>
