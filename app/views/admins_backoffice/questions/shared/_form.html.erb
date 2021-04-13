@@ -1,0 +1,44 @@
+<div class="container" style="justify-content: center">
+  <div class="col-sm">
+    <h1> <%= "#{action_message} Pergunta" %> </h1>
+      <%= form_with(model: [ :admins_backoffice, @question ], local: true) do |form| %>
+        <div class="row" style="width: 100%">
+          <% if @question.errors.any? %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <ul>
+                <% @question.errors.full_messages.each do |message| %>
+                  <li> <%= message %> </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="row" style="width: 100%">
+            <div class="col-md">
+              <div class="form-group">
+                <%= form.label :description %>
+                <%= form.text_area :description, class: "form-control", placeholder: "Descrição da pergunta", rows: 5 %>
+              </div>
+              <div class="form-group">
+                <%= form.label :subject_id %>
+                <%= form.collection_select :subject_id, @subjects, :id, :description, {}, { class: "form-control form-select" } %>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="row col-md">
+              <div class="form-group">
+                <%= form.submit "Salvar", class: "btn btn-primary" %>
+                <%= link_to 'Voltar', admins_backoffice_questions_path, class: "btn btn-primary" %>
+              </div>
+              <div class="col-md form-group">
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</div>
+
