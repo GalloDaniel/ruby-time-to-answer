@@ -7,6 +7,12 @@ pt-BR:
       user:
         one: Usuário
         other: Usuários
+      subject:
+        one: Assunto
+        other: Assuntos
+      question:
+        one: Pergunta
+        other: Perguntas
     attributes:
       admin:
         id: ID
@@ -18,5 +24,16 @@ pt-BR:
       user:
         id: ID
         email: Email
+        created_at: Criado em
+        updated_at: Atualizado em
+      subject:
+        id: ID
+        description: Descrição
+        created_at: Criado em
+        updated_at: Atualizado em
+      question:
+        id: ID
+        description: Descrição
+        subject: Assunto
         created_at: Criado em
         updated_at: Atualizado em
