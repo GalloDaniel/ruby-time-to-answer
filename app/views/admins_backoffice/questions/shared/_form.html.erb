@@ -27,17 +27,27 @@
               </div>
             </div>
           </div>
-          <div>
-            <div class="row col-md">
-              <div class="form-group">
-                <%= form.submit "Salvar", class: "btn btn-primary" %>
-                <%= link_to 'Voltar', admins_backoffice_questions_path, class: "btn btn-primary" %>
-              </div>
-              <div class="col-md form-group">
+          <div class="row", style="width: 50%">
+            <div class="col-md">
+              <div id="answers", class="form-group">
+                <%= form.fields_for :answers do |answer| %>
+                  <%= render partial: 'answer_fields', locals: { f: answer } %>
+                <% end %>
+
+                <%= link_to_add_association '+', form, :answers, class: "btn btn-primary btn-circle" %> Adicionar Pergunta
               </div>
             </div>
           </div>
         </div>
+        <br>
+          <div class="row">
+            <div class="col-md">
+              <div class="form-group">
+                <%= form.submit "Salvar", class: "btn btn-primary" %>
+                <%= link_to 'Voltar', admins_backoffice_questions_path, class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
       <% end %>
   </div>
 </div>

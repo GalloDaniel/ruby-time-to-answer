@@ -10,3 +10,4 @@
 //= require dataTables.bootstrap4.min
 //= require datatables-demo
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
+//= require cocoon
