@@ -20,46 +20,75 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <%= link_to 'Time to Answer', root_path, class: "navbar-brand" %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExample09">
-          <ul class="navbar-nav mr-auto">
+          <%= form_with(url: site_search_path, local: true, method: :get, class: "navbar-left mr-auto") do |form| %>
+            <%= form.text_field :term, class: "form-control", placeholder: "Search" %>
+          <% end %> 
+          <ul class="navbar-nav navbar-right">
+          <% unless user_signed_in? %>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <%= link_to 'Entrar', new_user_session_path, class: "nav-link" %>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+            <li class="nav-item active">
+              <%= link_to 'Registre-se', new_user_registration_path, class: "nav-link" %>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+          <% else %>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%= current_user.email %> </a>
               <div class="dropdown-menu" aria-labelledby="dropdown09">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <%= link_to users_backoffice_welcome_index_path, class: "dropdown-item" do  %>
+                    <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
+                <% end %>
+                <hr>
+                <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do  %>
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Sair
+                <% end %>
               </div>
             </li>
+          <% end %>
           </ul>
-          <form class="form-inline my-2 my-md-0">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-          </form>
         </div>
       </nav>
 
       <main role="main">
         <div class="jumbotron">
-          <%= yield %>
+          <h1>Site::Welcome#index</h1>
+          <p>Find me in app/views/site/welcome/index.html.erb</p>
+
+          <% if user_signed_in? %>
+            <p>Usuário ESTÁ logado / <%= current_user.email %> </p>
+          <% else %>
+            <p>Usuário NÃO está logado</p>
+          <% end %>
+
+          <% if admin_signed_in? %>
+            <p>Administrador ESTÁ logado / <%= current_admin.email %></p>
+          <% else %>
+            <p>Administrador NÃO está logado</p>
+          <% end %>
         </div>
+        <%= yield %>
       </main>
     </div>
 
       <%= javascript_include_tag 'application' %>
       <%= javascript_include_tag 'site' %>
+
+    <% if notice %>
+      <script>
+        $.bootstrapGrowl("<%= notice %>", {
+          type: 'success', // (null, 'info', 'danger', 'success')
+          align: 'right', // ('left', 'right', or 'center')
+          allow_dismiss: true, // If true then will display a cross to close the popup.
+          stackup_spacing: 10 // spacing between consecutively stacked growls.
+        });
+      </script>
+    <% end %>
 
   </body>
 </html>
