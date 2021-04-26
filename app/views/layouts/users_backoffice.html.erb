@@ -22,7 +22,9 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <%= link_to users_backoffice_welcome_index_path, class: "site_title" do %>
+                <i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <% end %>
             </div>
 
             <div class="clearfix"></div>
@@ -30,11 +32,15 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <%= image_tag 'img.jpg', alt: "...", class: "img-circle profile_img" %>
+                <%= link_to image_tag(avatar_url, alt: "...", class: "img-circle profile_img"), "#", "data-toggle": "modal", "data-target": "#avatarModal" %>
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <span>Seja bem-vindo,</span>
+                <% if current_user.first_name %>
+                  <h2> <%= current_user.full_name %> </h2>
+                <% else %>
+                  <h2> Novo usuário </h2>
+                <% end %>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -87,7 +93,7 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <%= image_tag 'img.jpg', alt: "" %>
+                      <%= image_tag avatar_url, alt: "" %>
                       <%= current_user.email %>
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
@@ -123,8 +129,54 @@
       </div>
     </div>
 
+        <!-- Modal -->
+    <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <%= form_with(url: users_backoffice_profile_path, model: current_user, local: true, class: "form-horizontal form-label-left") do |form| %>
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Avatar</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <%= form.fields_for :user_profile do |profile_form| %>
+                <div class="form-group">
+                  <%= profile_form.label :avatar %>
+                  <%= image_tag(avatar_url, alt: "...", class: "img-circle profile_img") %>
+                  <%= profile_form.file_field :avatar, class: "form-control-file" %>
+                </div> 
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <%= form.submit "Salvar", class: "btn btn-primary", style: "border-radius: 10em;" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'users_backoffice' %>
 
+    <% if notice %>
+      <script>
+        $.bootstrapGrowl("<%= notice %>", {
+          type: 'success', // (null, 'info', 'danger', 'success')
+          align: 'right', // ('left', 'right', or 'center')
+          allow_dismiss: true, // If true then will display a cross to close the popup.
+          stackup_spacing: 10 // spacing between consecutively stacked growls.
+        });
+      </script>
+    <% end %>
+
+    <script>
+      $(function() {
+        $('.datepicker').datepicker();
+      });
+    </script>
+    
   </body>
 </html>
