@@ -1,4 +1,3 @@
-
 <div>
   <div class="login_wrapper">
     <div class="animate form login_form">
@@ -12,7 +11,8 @@
             <%= f.password_field :password, placeholder: "current-password", class: "form-control" %>
           </div>
           <div>
-            <%= f.submit "Entrar", class: "btn btn-primary", style: "float: none; margin-left: 0; border-radius: 10em; width: 50%" %>
+            <%= f.submit "Entrar", class: "btn btn-primary", style: "float: none; margin-left: 0; border-radius: 10em; width: 40%" %>
+            <%= link_to 'Esqueceu a sua senha?', new_user_password_path, class: "reset_pass" %>
           </div>
 
           <div class="clearfix"></div>
