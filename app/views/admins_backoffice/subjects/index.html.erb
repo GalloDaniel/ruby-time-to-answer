@@ -13,6 +13,9 @@
               <%= link_to new_admins_backoffice_subject_path, class: "btn btn-success btn-circle btn-sm" do %>
                 <i class="fa fa-plus"></i>
               <% end %>
+              <%= link_to admins_backoffice_subjects_path(format: :pdf), class: "btn btn-danger btn-circle btn-sm" do %>
+                <i class="fa fa-file-pdf-o"></i>
+              <% end %>
             </th>
           </tr>
         </thead>              
@@ -23,10 +26,10 @@
             <td> <%= subject.description %> </td>
             <td style="width: 100px;"> 
               <%= link_to edit_admins_backoffice_subject_path(subject), class: "btn btn-primary btn-circle btn-sm" do %>
-                <i class="far fa-edit"></i>
+                <i class="fa fa-pencil-square-o"></i>
               <% end %>
               <%= link_to admins_backoffice_subject_path(subject), method: :delete, class: "btn btn-danger btn-circle btn-sm", data: { confirm: "Deseja realmente excluir este assunto?"} do %>
-                <i class="fas fa-trash"></i>
+                <i class="fa fa-minus"></i>
               <% end %>
             </td>
           </tr> 
